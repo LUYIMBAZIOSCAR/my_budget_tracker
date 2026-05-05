@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import dashboard
+from .views import dashboard,add_transaction
+
 
 urlpatterns=[
-    path('dashboard/',dashboard,name='dashboard')
+    path('dashboard/',dashboard,name='dashboard'),
+    path('add_transaction',add_transaction,name='add_transaction')
 
 ]
