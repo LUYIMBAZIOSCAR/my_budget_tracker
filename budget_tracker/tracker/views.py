@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .forms import TransactionForm
+from .models import Transaction
 
 # Create your views here.
 
@@ -23,3 +24,8 @@ def add_transaction(request):
 
 
     return render(request,'tracker/add_transaction.html',{'form':form})
+
+# view transaction for transactions
+def view_transactions(request):
+    transactions=Transaction.objects.all()
+    return render(request,'tracker/view_transactions.html',{'transactions':transactions})
