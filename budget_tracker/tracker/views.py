@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import TransactionForm
 from .models import Transaction
@@ -29,3 +29,18 @@ def add_transaction(request):
 def view_transactions(request):
     transactions=Transaction.objects.all()
     return render(request,'tracker/view_transactions.html',{'transactions':transactions})
+
+#view function to edit a transaction
+def edit_transaction(request,transaction_id):
+    transaction=get_object_or_404(Transaction,user=request.user,id=transaction_id)
+    if request.method=='POST':
+        form=TransactionForm(request.POST,instance=transaction)
+        if form.is_valid():
+            form.save()
+            return redirect('transactions')
+    else:
+        form=TransactionForm(instance=transaction)
+
+
+    return render(request,'tracker/edit_transaction.html',{'form':form,'transaction':transaction})
+    
