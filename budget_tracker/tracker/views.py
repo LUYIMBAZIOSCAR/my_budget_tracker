@@ -43,4 +43,16 @@ def edit_transaction(request,transaction_id):
 
 
     return render(request,'tracker/edit_transaction.html',{'form':form,'transaction':transaction})
+
+# view function to delete a transaction 
+def delete_transaction(request,transaction_id):
+    transaction=get_object_or_404(Transaction,user=request.user,id=transaction_id)
+    if request.method=='POST':
+        transaction.delete()
+        return redirect('transactions')
+    else:
+        return render('transactions')
+
+
+    
     
